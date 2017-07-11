@@ -18,6 +18,6 @@ object WebServer {
 
     Http().bindAndHandle(service.route, interface, port)
 
-    println(s"Server online at http://$interface:$port")
+    println(s"Server online at http://localhost:$port")
   }
 }
