@@ -7,7 +7,7 @@ import shared.SharedMessages
 
 class WebService() extends Directives {
 
-  val route:Route = {
+  val route = {
     pathSingleSlash {
       //get {
       //  complete {

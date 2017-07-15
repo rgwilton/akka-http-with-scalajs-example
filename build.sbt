@@ -22,7 +22,7 @@ lazy val server = (project in file("server")).settings(
   // Write a javascript map from short name to full unique name.
   DigestKeys.indexPath := Some("javascripts/versioned.js")
 ).enablePlugins(SbtWeb, JavaAppPackaging).
-  dependsOn(sharedJvm, sharedJs, client)
+  dependsOn(sharedJvm, client)
 
 lazy val client = (project in file("client")).settings(
   scalaVersion := scalaV,
@@ -30,6 +30,7 @@ lazy val client = (project in file("client")).settings(
   libraryDependencies ++= Seq(
     "org.scala-js" %%% "scalajs-dom" % "0.9.1",
     "com.github.japgolly.scalajs-react" %%% "core" % "1.1.0",
+    "com.github.japgolly.scalajs-react" %%% "extra" % "1.1.0",
 
     // Client side dependencies.
     "org.webjars" % "foundation" % "6.3.1",
