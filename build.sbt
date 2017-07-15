@@ -3,7 +3,7 @@ val scalaV = "2.12.2"
 lazy val server = (project in file("server")).settings(
   scalaVersion := scalaV,
   scalaJSProjects := Seq(client),
-  pipelineStages in Assets := Seq(scalaJSPipeline/*, rjs,*/, digest, gzip),
+  pipelineStages in Assets := Seq(scalaJSPipeline/*, rjs*/, digest, gzip),
   // triggers scalaJSPipeline when using compile or continuous compilation
   compile in Compile := ((compile in Compile) dependsOn scalaJSPipeline).value,
   libraryDependencies ++= Seq(
@@ -11,7 +11,7 @@ lazy val server = (project in file("server")).settings(
     "com.vmunier" %% "scalajs-scripts" % "1.1.0"
 
     // Client side dependencies.
-    //"org.webjars" % "foundation" % "6.3.1",
+    //"org.webjars" % "foundation" % "6.3.1"
     //"org.webjars" % "font-awesome" % "4.7.0"
   ),
   WebKeys.packagePrefix in Assets := "public/",
@@ -22,17 +22,19 @@ lazy val server = (project in file("server")).settings(
   // Write a javascript map from short name to full unique name.
   DigestKeys.indexPath := Some("javascripts/versioned.js")
 ).enablePlugins(SbtWeb, JavaAppPackaging).
-  dependsOn(sharedJvm, client)
+  dependsOn(sharedJvm, sharedJs, client)
 
 lazy val client = (project in file("client")).settings(
   scalaVersion := scalaV,
   scalaJSUseMainModuleInitializer := true,
   libraryDependencies ++= Seq(
     "org.scala-js" %%% "scalajs-dom" % "0.9.1",
+    "com.github.japgolly.scalajs-react" %%% "core" % "1.1.0",
 
     // Client side dependencies.
     "org.webjars" % "foundation" % "6.3.1",
-    "org.webjars" % "font-awesome" % "4.7.0"
+    "org.webjars" % "font-awesome" % "4.7.0",
+    "org.webjars.bower" % "react" % "15.6.1"
   )
   // Mucks up the path.
   //WebKeys.packagePrefix in Assets := "public/",
